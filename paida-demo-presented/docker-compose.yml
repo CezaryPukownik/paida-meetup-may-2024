@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  clickhouse:
+    image: yandex/clickhouse-server:latest
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+
+  grafana:
+    image: grafana/grafana:latest
+    depends_on:
+      - clickhouse
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  clickhouse_data:
+  grafana_data:
